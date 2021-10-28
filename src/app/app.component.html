@@ -1,1 +1,7 @@
-<p (click)="submit()">Click for cats</p>
+<p (click)="submit()">Click for cats names</p>
+
+<div *ngIf="cats.length > 0">
+  <ul *ngFor="let cat of cats">
+    <li>{{cat.name}}</li>
+  </ul>
+</div>

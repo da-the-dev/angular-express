@@ -10,17 +10,17 @@ import { CatService } from './core/services/cat.service';
 export class AppComponent implements OnInit {
   title = 'angular-express';
 
-  cats: Cat[]
+  cats: Cat[] = []
 
   constructor(
     private catService: CatService
   ) { }
 
   ngOnInit(): void {
-    this.catService.getAllCats().subscribe(ev => this.cats = ev)
   }
 
   submit() {
+    this.catService.getAllCats().subscribe(ev => this.cats = ev)
     console.log(this.cats)
   }
 }
