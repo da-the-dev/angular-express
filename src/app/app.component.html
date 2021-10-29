@@ -1,26 +1,36 @@
-<div class="row m-2">
-  <div class="col-3 text-center">
-    <p (click)="submit(); toggle()" style="user-select: none;">Click here for cats</p>
-    <div *ngIf=" cats.length> 0 && show">
+<div class="row m-1">
+  <div class="col-3">
+    <p (click)="submit()">Click to show cat list</p>
+    <div *ngIf="show">
       <ul *ngFor="let cat of cats">
         <li>{{cat.name}}</li>
       </ul>
     </div>
   </div>
-  <div class="col-3 text-center">
-    <form class="d-flex flex-column" (ngSubmit)="addCat(addCatForm)">
-      <label style="user-select: none;" for=" addCatName">Cat name to add</label>
-      <input ngModel #addCatForm="ngModel" type="text" name="addCatName" required>
-      <div class="alert alert-danger" *ngIf="addCatForm.touched && !addCatForm.valid">No cat name defined!</div>
-      <button class="btn btn-primary" type="submit">Add</button>
-    </form>
-  </div>
-  <div class="col-3 text-center">
-    <form class="d-flex flex-column" (ngSubmit)="killCat(killCatForm)">
-      <label style="user-select: none;" for="killCatName">Cat name to add</label>
-      <input ngModel #killCatForm="ngModel" type="text" name="killCatName" required>
-      <div class="alert alert-danger" *ngIf="killCatForm.touched && !killCatForm.valid">No cat name defined!</div>
-      <button class="btn btn-danger" type="submit">Remove</button>
+  <div class="col-3">
+    <form>
+      <label for="catName">Cat name goes here</label>
+      <input ngModel #catNameForm="ngModel" type="text" name="catName" id="catName" required>
+
+      <button class="btn btn-success" (click)="addCat(catNameForm)">Add</button>
+      <button class="btn btn-danger" (click)="killCat(catNameForm)">Remove</button>
+
+      <!-- <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample">
+        Update
+      </button> -->
+      <!-- <div class="collapse" id="collapseExample">
+        <div class="form-group">
+          <div class="card card-body">
+            <label for="catAge">Enter cat age</label>
+            <input ngForm #catAge="ngForm" id="catAge" type="number">
+            <div *ngIf="catAge.touched && catAgeValidate(catAge)" class="alert alert-danger">Not a valid number<br>(age
+              >
+              0, a whole number)</div>
+            <button class="btn btn-danger" (click)="killCat(catName)">Remove</button>
+          </div>
+        </div>
+      </div> -->
+
     </form>
   </div>
 </div>

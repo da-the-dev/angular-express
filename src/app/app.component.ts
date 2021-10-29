@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NgModel } from '@angular/forms';
+import { NgForm, NgModel } from '@angular/forms';
 import { Cat } from './core/interfaces/cat';
 import { CatService } from './core/services/cat.service';
 
@@ -27,6 +27,7 @@ export class AppComponent {
     this.show = !this.show
   }
   addCat(catForm: NgModel) {
+    console.log(catForm.value)
     if (catForm.valid)
       this.catService.addCat(catForm.value).subscribe(res => this.submit())
   }
@@ -35,8 +36,10 @@ export class AppComponent {
       this.catService.killCat(catForm.value).subscribe(res => this.submit())
   }
 
-  log(any?: any) {
-    console.log(any)
-  }
-
+  // catAgeValidate(catAgeForm: NgForm) {
+  //   if (Number(catAgeForm.value) && Number(catAgeForm.value) > 0)
+  //     return true
+  //   else
+  //     return false
+  // }
 }
