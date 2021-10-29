@@ -1,6 +1,6 @@
 <div class="row m-1">
   <div class="col-3">
-    <p (click)="submit()">Click to show cat list</p>
+    <p style="user-select: none;" (click)="submit()">Click to show cat list</p>
     <div *ngIf="show">
       <ul *ngFor="let cat of cats">
         <li>{{cat.name}}</li>
@@ -8,28 +8,34 @@
     </div>
   </div>
   <div class="col-3">
-    <form>
+    <form [formGroup]="catForm">
       <label for="catName">Cat name goes here</label>
-      <input ngModel #catNameForm="ngModel" type="text" name="catName" id="catName" required>
+      <input formControlName="name" type="text" id="catName" required>
+      <div *ngIf="catForm.get('name')?.touched && catForm.get('name')?.invalid" class="alert alert-danger">Name must
+        be at least 3
+        characters long</div>
 
-      <button class="btn btn-success" (click)="addCat(catNameForm)">Add</button>
-      <button class="btn btn-danger" (click)="killCat(catNameForm)">Remove</button>
+      <button class="btn btn-success" (click)="addCat()">Add</button>
+      <button class="btn btn-danger" (click)="killCat()">Remove</button>
 
-      <!-- <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample">
+      <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample">
         Update
-      </button> -->
-      <!-- <div class="collapse" id="collapseExample">
+      </button>
+      <div class="collapse" id="collapseExample">
         <div class="form-group">
           <div class="card card-body">
             <label for="catAge">Enter cat age</label>
-            <input ngForm #catAge="ngForm" id="catAge" type="number">
-            <div *ngIf="catAge.touched && catAgeValidate(catAge)" class="alert alert-danger">Not a valid number<br>(age
+            <input formControlName="age" type="number" id="catAge" (change)="log(catForm.get('age')?.valid)"
+              placeholder="Work in progress...">
+            <div *ngIf="(catForm.get('age')?.dirty || catForm.get('age')?.touched) && catForm.get('age')?.invalid"
+              class="alert alert-danger">Not a
+              valid number<br>(age
               >
               0, a whole number)</div>
-            <button class="btn btn-danger" (click)="killCat(catName)">Remove</button>
+            <button class="btn btn-danger">Update</button>
           </div>
         </div>
-      </div> -->
+      </div>
 
     </form>
   </div>
