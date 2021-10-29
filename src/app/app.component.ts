@@ -11,6 +11,8 @@ export class AppComponent implements OnInit {
   title = 'angular-express';
 
   cats: Cat[] = []
+  addCatName: string
+  killCatName: string
 
   constructor(
     private catService: CatService
@@ -21,6 +23,12 @@ export class AppComponent implements OnInit {
 
   submit() {
     this.catService.getAllCats().subscribe(ev => this.cats = ev)
-    console.log(this.cats)
+  }
+
+  addCat(name: string, body?: Record<string, any>) {
+    this.catService.addCat(name, body).subscribe(res => this.submit())
+  }
+  killCat(name: string) {
+    this.catService.killCat(name).subscribe(res => this.submit())
   }
 }
