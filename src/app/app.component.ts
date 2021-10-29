@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { NgModel } from '@angular/forms';
 import { Cat } from './core/interfaces/cat';
 import { CatService } from './core/services/cat.service';
 
@@ -11,6 +12,7 @@ export class AppComponent {
   title = 'angular-express';
 
   cats: Cat[] = []
+  show = true
   addCatName: string
   killCatName: string
 
@@ -21,12 +23,16 @@ export class AppComponent {
   submit() {
     this.catService.getAllCats().subscribe(ev => this.cats = ev)
   }
-  addCat(name: string, body?: Record<string, any>) {
-    console.log(name)
-    this.catService.addCat(name, body).subscribe(res => this.submit())
+  toggle() {
+    this.show = !this.show
   }
-  killCat(name: string) {
-    this.catService.killCat(name).subscribe(res => this.submit())
+  addCat(catForm: NgModel) {
+    if (catForm.valid)
+      this.catService.addCat(catForm.value).subscribe(res => this.submit())
+  }
+  killCat(catForm: NgModel) {
+    if (catForm.valid)
+      this.catService.killCat(catForm.value).subscribe(res => this.submit())
   }
 
   log(any?: any) {

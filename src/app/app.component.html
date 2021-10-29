@@ -1,22 +1,26 @@
-<div class="control-container">
-  <div class="control-element">
-    <p (click)="submit()">Click for cats names</p>
-    <div *ngIf="cats.length > 0">
+<div class="row m-2">
+  <div class="col-3 text-center">
+    <p (click)="submit(); toggle()" style="user-select: none;">Click here for cats</p>
+    <div *ngIf=" cats.length> 0 && show">
       <ul *ngFor="let cat of cats">
         <li>{{cat.name}}</li>
       </ul>
     </div>
   </div>
-
-  <form class="control-element" (ngSubmit)="addCat(catForm.value)">
-    <label for="addCatName">Cat name to add</label>
-    <input ngModel required name="addCatName" #catForm="ngModel" (change)="log(catForm.value)" type="text">
-    <button type="submit">Add</button>
-  </form>
-
-  <form class="control-element" (ngSubmit)="killCat(catForm.value)">
-    <label for="delCatName">Cat name to remove</label>
-    <input ngModel required name="delCatName" #catForm="ngModel" (change)="log(catForm.value)" type="text">
-    <button type="submit">Remove</button>
-  </form>
+  <div class="col-3 text-center">
+    <form class="d-flex flex-column" (ngSubmit)="addCat(addCatForm)">
+      <label style="user-select: none;" for=" addCatName">Cat name to add</label>
+      <input ngModel #addCatForm="ngModel" type="text" name="addCatName" required>
+      <div class="alert alert-danger" *ngIf="addCatForm.touched && !addCatForm.valid">No cat name defined!</div>
+      <button class="btn btn-primary" type="submit">Add</button>
+    </form>
+  </div>
+  <div class="col-3 text-center">
+    <form class="d-flex flex-column" (ngSubmit)="killCat(killCatForm)">
+      <label style="user-select: none;" for="killCatName">Cat name to add</label>
+      <input ngModel #killCatForm="ngModel" type="text" name="killCatName" required>
+      <div class="alert alert-danger" *ngIf="killCatForm.touched && !killCatForm.valid">No cat name defined!</div>
+      <button class="btn btn-danger" type="submit">Remove</button>
+    </form>
+  </div>
 </div>
