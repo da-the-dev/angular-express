@@ -8,19 +8,15 @@
     </div>
   </div>
 
-  <div class="control-element">
-    <form class="form" (submit)="addCat(addCatName)">
-      <label for="catAdd">Cat name to add</label>
-      <input [(ngModel)]="addCatName" name="catAdd" type="text">
-      <button>Add cat</button>
-    </form>
-  </div>
+  <form class="control-element" (ngSubmit)="addCat(catForm.value)">
+    <label for="addCatName">Cat name to add</label>
+    <input ngModel required name="addCatName" #catForm="ngModel" (change)="log(catForm.value)" type="text">
+    <button type="submit">Add</button>
+  </form>
 
-  <div class="control-element">
-    <form class="form" (submit)="killCat(killCatName)">
-      <label for="catKill">Cat name to remove</label>
-      <input [(ngModel)]="killCatName" name="catKill" type="text">
-      <button>Remove cat</button>
-    </form>
-  </div>
+  <form class="control-element" (ngSubmit)="killCat(catForm.value)">
+    <label for="delCatName">Cat name to remove</label>
+    <input ngModel required name="delCatName" #catForm="ngModel" (change)="log(catForm.value)" type="text">
+    <button type="submit">Remove</button>
+  </form>
 </div>

@@ -1,15 +1,13 @@
-.form {
-    display: flex;
-    flex-direction: column;
-}
 .control {
     &-container {
         display: flex;
-        // flex-direction: row;
+        flex-direction: row;
         justify-content: flex-start;
         align-items: flex-start;
     }
     &-element {
+        display: flex;
+        flex-direction: column;
         margin: auto 1rem;
         position: relative;
     }

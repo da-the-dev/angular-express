@@ -7,7 +7,7 @@ import { CatService } from './core/services/cat.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'angular-express';
 
   cats: Cat[] = []
@@ -18,17 +18,19 @@ export class AppComponent implements OnInit {
     private catService: CatService
   ) { }
 
-  ngOnInit(): void {
-  }
-
   submit() {
     this.catService.getAllCats().subscribe(ev => this.cats = ev)
   }
-
   addCat(name: string, body?: Record<string, any>) {
+    console.log(name)
     this.catService.addCat(name, body).subscribe(res => this.submit())
   }
   killCat(name: string) {
     this.catService.killCat(name).subscribe(res => this.submit())
   }
+
+  log(any?: any) {
+    console.log(any)
+  }
+
 }
