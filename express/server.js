@@ -12,6 +12,6 @@ app.get('/', (req, res) => {
 app.use('/api/v1', v1)
 app.use('/api/v2', v2)
 
-app.listen(3000, () => {
+app.listen(8080, () => {
     console.log('Server started! ')
 })
