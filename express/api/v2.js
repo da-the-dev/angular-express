@@ -6,10 +6,8 @@ const v2 = express.Router()
 v2.route('/cats/:name')
     // Create
     .put((req, res) => {
-        console.log('smth')
         if(req.body) {
             const newCat = { name: req.params.name, ...req.body }
-            console.log(newCat)
             CATS.push(newCat)
             res.status(201).send(newCat)
         }
