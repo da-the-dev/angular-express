@@ -5,7 +5,9 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
+
+import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -13,11 +15,12 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    TooltipModule.forRoot()
+    CollapseModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

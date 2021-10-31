@@ -1,9 +1,29 @@
 <div class="row m-1">
   <div class="col-3">
-    <p style="user-select: none;" (click)="submit()">Click to show cat list</p>
-    <div *ngIf="show">
-      <ul *ngFor="let cat of cats">
-        <li>{{cat.name}}</li>
+    <div class="row align-items-center">
+      <div class="col-8">
+        <button type="button" class="btn btn-primary" (click)="isCollapsed = !isCollapsed"
+          [attr.aria-expanded]="!isCollapsed" aria-controls="cats">Click here to view cats
+        </button>
+      </div>
+      <div class="col">
+        <i (click)="submit()" class="fas fa-redo-alt big"></i>
+      </div>
+    </div>
+    <hr>
+    <div id="cats" [collapse]="isCollapsed" [isAnimated]="true">
+      <ul *ngFor="let cat of cats; let i = index">
+
+
+        <button type="button" class="btn btn-dark shadow-none" (click)="cat.isCollapsed = !cat.isCollapsed"
+          [attr.aria-expanded]="!cat.isCollapsed" [attr.aria-controls]="'catData' + i">{{cat.cat.name}}
+        </button>
+        <div [attr.id]="'catData' + i" [collapse]="cat.isCollapsed" [isAnimated]="true">
+          <div class="card card-body">
+            {{cat.cat.age || 'none'}}
+          </div>
+        </div>
+
       </ul>
     </div>
   </div>
