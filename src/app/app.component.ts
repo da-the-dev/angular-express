@@ -73,13 +73,12 @@ export class AppComponent implements OnInit {
   reset() {
     this.catForm.reset()
     this.catService.reset().subscribe(res => {
-      this.cats = this.cats.map((c, i) => {
+      this.cats = res.map((c, i) => {
         return {
           cat: res[i],
-          isCollapsed: c.isCollapsed
+          isCollapsed: this.cats[i].isCollapsed
         }
       })
-      console.log(this.cats)
     })
   }
 

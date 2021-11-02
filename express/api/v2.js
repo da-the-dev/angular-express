@@ -9,9 +9,10 @@ v2.get('/cats', (req, res) => {
 })
 
 v2.get('/cats/reset', (req, res) => {
-    console.log(CONSTCATS)
-    CATS = CONSTCATS
-    console.log(CATS)
+    // console.log('constcats:', CONSTCATS)
+    CATS = [...CONSTCATS]
+    // console.log('cats:', CATS)
+    // console.log()
     res.status(200).send(CATS)
 })
 
