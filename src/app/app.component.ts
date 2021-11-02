@@ -13,6 +13,7 @@ export class AppComponent implements OnInit {
   title = 'angular-express';
 
   isCollapsed = true;
+  updateCollapsed = true;
 
   catForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -32,11 +33,17 @@ export class AppComponent implements OnInit {
     this.submit()
   }
 
+  get age() {
+    return this.catForm.get('age')!
+  }
+  get name() {
+    return this.catForm.get('name')!
+  }
+
   submit() {
     this.catService.getAllCats().subscribe(ev => {
-      const catDatas = ev
       const catStates = this.cats.map(c => c.isCollapsed)
-      this.cats = catDatas.map((c, i) => {
+      this.cats = ev.map((c, i) => {
         return {
           cat: c,
           isCollapsed: catStates[i] === undefined ? true : catStates[i]
@@ -49,19 +56,19 @@ export class AppComponent implements OnInit {
   }
   addCat() {
     if (this.catForm.valid)
-      this.catService.addCat(this.catForm.get('name')?.value).subscribe(res => this.submit())
+      this.catService.addCat(this.name.value).subscribe(res => this.submit())
   }
   killCat() {
     if (this.catForm.valid)
-      this.catService.killCat(this.catForm.get('name')?.value).subscribe(res => this.submit())
+      this.catService.killCat(this.name.value).subscribe(res => this.submit())
   }
-
-  catAgeValidate() {
-    console.log(this.catForm.get('age')?.value)
-    if (Number(this.catForm.get('age')?.value) && Number(this.catForm.get('age')?.value) > 0)
-      return true
-    else
-      return false
+  updateCat() {
+    if (this.catForm.valid) {
+      this.catService.updateCat(this.name.value, { age: this.age.value }).subscribe(res => {
+        const updatedCatIndex = this.cats.findIndex(c => c.cat.name == res.name)
+        this.cats[updatedCatIndex] = { cat: res, isCollapsed: this.cats[updatedCatIndex].isCollapsed }
+      })
+    }
   }
 
   log(any?: any) {

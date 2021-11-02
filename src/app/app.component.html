@@ -13,17 +13,14 @@
     <hr>
     <div id="cats" [collapse]="isCollapsed" [isAnimated]="true">
       <ul *ngFor="let cat of cats; let i = index">
-
-
         <button type="button" class="btn btn-dark shadow-none" (click)="cat.isCollapsed = !cat.isCollapsed"
           [attr.aria-expanded]="!cat.isCollapsed" [attr.aria-controls]="'catData' + i">{{cat.cat.name}}
         </button>
         <div [attr.id]="'catData' + i" [collapse]="cat.isCollapsed" [isAnimated]="true">
           <div class="card card-body">
-            {{cat.cat.age || 'none'}}
+            {{cat.cat.name}}'s age is {{cat.cat.age || 0}}
           </div>
         </div>
-
       </ul>
     </div>
   </div>
@@ -32,31 +29,26 @@
       <label for="catName">Cat name goes here</label>
       <input formControlName="name" type="text" id="catName" required>
       <div *ngIf="catForm.get('name')?.touched && catForm.get('name')?.invalid" class="alert alert-danger">Name must
-        be at least 3
-        characters long</div>
+        be at least 3 characters long</div>
 
       <button class="btn btn-success" (click)="addCat()">Add</button>
       <button class="btn btn-danger" (click)="killCat()">Remove</button>
 
-      <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample">
+      <button type="button" class="btn btn-secondary" (click)="updateCollapsed = !updateCollapsed"
+        [attr.aria-expanded]="!updateCollapsed" aria-controls="update">
         Update
       </button>
-      <div class="collapse" id="collapseExample">
+      <div id="update" [collapse]='updateCollapsed'>
         <div class="form-group">
           <div class="card card-body">
             <label for="catAge">Enter cat age</label>
-            <input formControlName="age" type="number" id="catAge" (change)="log(catForm.get('age')?.valid)"
-              placeholder="Work in progress...">
-            <div *ngIf="(catForm.get('age')?.dirty || catForm.get('age')?.touched) && catForm.get('age')?.invalid"
-              class="alert alert-danger">Not a
-              valid number<br>(age
-              >
-              0, a whole number)</div>
-            <button class="btn btn-danger">Update</button>
+            <input formControlName="age" type="number" id="catAge" placeholder="Work in progress...">
+            <div *ngIf="(age.dirty || age.touched) && age.invalid" class="alert alert-danger">Not a
+              valid number<br>(age > 0, a whole number)</div>
+            <button class="btn btn-secondary" (click)='updateCat()'>Update</button>
           </div>
         </div>
       </div>
-
     </form>
   </div>
 </div>

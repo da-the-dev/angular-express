@@ -4,12 +4,10 @@ import { Cat } from '../interfaces/cat';
 import { environment } from 'src/environments/environment';
 const baseUrl = environment.baseUrl
 
-
 @Injectable({
   providedIn: 'root'
 })
 export class CatService {
-
   constructor(
     private httpClient: HttpClient
   ) { }
@@ -25,5 +23,8 @@ export class CatService {
   }
   killCat(name: string) {
     return this.httpClient.delete<void>(`${baseUrl}/api/v2/cats/${name}`)
+  }
+  updateCat(name: string, body: Record<string, any>) {
+    return this.httpClient.patch<Cat>(`${baseUrl}/api/v2/cats/${name}`, body)
   }
 }
