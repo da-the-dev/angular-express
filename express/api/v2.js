@@ -9,10 +9,7 @@ v2.get('/cats', (req, res) => {
 })
 
 v2.get('/cats/reset', (req, res) => {
-    // console.log('constcats:', CONSTCATS)
     CATS = [...CONSTCATS]
-    // console.log('cats:', CATS)
-    // console.log()
     res.status(200).send(CATS)
 })
 
@@ -55,7 +52,7 @@ v2.route('/cats/:name')
 
     // Delete
     .delete((req, res) => {
-        const selectedCatIndex = CATS.findIndex(c => c.name == req.params.name)
+        const selectedCatIndex = CATS.indexOf(CATS.filter(c => c.name === req.params.name).pop())
         if(selectedCatIndex != -1) {
             CATS.splice(selectedCatIndex, 1)
             res.status(200).send({ name: req.body.name })
@@ -63,7 +60,5 @@ v2.route('/cats/:name')
         else
             res.sendStatus(404)
     })
-
-
 
 module.exports = v2
