@@ -70,6 +70,18 @@ export class AppComponent implements OnInit {
       })
     }
   }
+  reset() {
+    this.catForm.reset()
+    this.catService.reset().subscribe(res => {
+      this.cats = this.cats.map((c, i) => {
+        return {
+          cat: res[i],
+          isCollapsed: c.isCollapsed
+        }
+      })
+      console.log(this.cats)
+    })
+  }
 
   log(any?: any) {
     console.log(any)

@@ -27,4 +27,7 @@ export class CatService {
   updateCat(name: string, body: Record<string, any>) {
     return this.httpClient.patch<Cat>(`${baseUrl}/api/v2/cats/${name}`, body)
   }
+  reset() {
+    return this.httpClient.get<Cat[]>(`${baseUrl}/api/v2/cats/reset`)
+  }
 }

@@ -1,7 +1,19 @@
 const express = require('express')
-let CATS = require('../mocks/cats.mock')
+let CATS = require('../mocks/cats.mock').CATS
+const CONSTCATS = require('../mocks/cats.mock').CONSTCATS
 
 const v2 = express.Router()
+
+v2.get('/cats', (req, res) => {
+    res.status(200).send(CATS)
+})
+
+v2.get('/cats/reset', (req, res) => {
+    console.log(CONSTCATS)
+    CATS = CONSTCATS
+    console.log(CATS)
+    res.status(200).send(CATS)
+})
 
 v2.route('/cats/:name')
     // Create
@@ -51,8 +63,6 @@ v2.route('/cats/:name')
             res.sendStatus(404)
     })
 
-v2.get('/cats', (req, res) => {
-    res.status(200).send(CATS)
-})
+
 
 module.exports = v2
