@@ -1,34 +1,37 @@
 <div class="container w-25">
   <div class="text-center mb-5">
-    <h1>Register</h1>
+    <h1>Login</h1>
   </div>
-  <form [formGroup]="registerForm" (ngSubmit)="submit()">
+  <form [formGroup]="loginForm" (ngSubmit)="submit()">
+    <!-- Nickname -->
     <div class="mb-3">
       <label class="form-label" for="nickname">Nickname</label><br>
-      <input formControlName="nickname" class="form-control" type="text" name="nickname" id="nickname"
-        (ngModelChange)="resetAccCheck()">
-      <div *ngIf="nickname.touched && nickname.dirty && nickname.errors" class="alert alert-danger">
+      <input formControlName="nickname" class="form-control" type="text" name="nickname" id="nickname">
+      <div *ngIf=" nickname.touched && nickname.dirty && nickname.errors" class="alert alert-danger">
+        <div *ngIf="!nickname.errors?.require && !nickname.errors?.accountExists">A user with this nickname doesn't
+          exist
+        </div>
         <div *ngIf="nickname.errors?.required">Nickname is required</div>
-        <div *ngIf="nickname.errors?.minlength">Minimum length is 5</div>
-        <div *ngIf="nickname.errors?.maxlength">Maximum length is 20</div>
-        <div *ngIf="nickname.errors?.accountExists">Account with this nickname already exists</div>
       </div>
     </div>
+    <!-- Password -->
     <div class="mb-3">
       <label class="form-label" for="password">Password</label><br>
       <input formControlName="password" class="form-control" type="password" name="password" id="password">
       <div *ngIf="password.touched && password.dirty && password.errors" class="alert alert-danger">
         <div *ngIf="password.errors?.required">Password is required</div>
         <div *ngIf="password.errors?.pattern">Password must match a pattern</div>
+        <div *ngIf="!password.errors?.validPassword">Password is incorrect</div>
       </div>
     </div>
+    <!-- Login button -->
     <div class="text-center">
-      <input class="btn btn-primary mb-2" type="submit" id="submit" value="Register" /><br>
+      <input class="btn btn-primary mb-2" type="submit" id="submit" value="Login" /><br>
       <!-- Redundant -->
       <!-- <div *ngIf="successfullyRegistered" class="alert alert-success">
-        Registration successful! Redirecting...
+        Login successful! Redirecting...
       </div> -->
-      <a class="opacity-25 text-decoration-none" routerLink='/login'>Already have an account?</a>
+      <a class="opacity-25 text-decoration-none" routerLink='/register'>Don't have an account?</a>
     </div>
   </form>
 </div>

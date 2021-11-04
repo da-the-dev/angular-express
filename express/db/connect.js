@@ -1,14 +1,23 @@
-const { MongoClient } = require("mongodb");
+const { MongoClient, Db, Collection } = require("mongodb")
+const { Document } = require('bson')
 require('dotenv').config()
 
 const client = new MongoClient(process.env.MURL)
 
-async function connect() {
-    return (await client.connect()).db('catapi')
+/**
+ * @param {(catapi: Db) => Promise<void>|void} func 
+ */
+async function connect(func) {
+    const connection = await client.connect()
+    await func(connection.db('catapi'))
+    await connection.close()
 }
 
-async function users() {
-    return (await connect()).collection('users')
+/**
+ * @param {(users: Collection<Document>) => Promise<void>|void} func 
+ */
+async function users(func) {
+    connect(db => func(db.collection('users')))
 }
 
 module.exports = { connect, users }
