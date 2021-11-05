@@ -1,5 +1,6 @@
 <div class="row m-1">
   <div class="col-3">
+    <!-- Cat list control -->
     <div class="row text-center align-items-center">
       <div class="col-8">
         <button
@@ -15,8 +16,10 @@
         <i (click)="submit()" class="fas fa-redo-alt big"></i>
       </div>
     </div>
+
     <hr>
 
+    <!-- Cat list -->
     <div>
       <div id="cats" [collapse]="isCollapsed" [isAnimated]="true">
         <div *ngFor="let cat of cats; let i = index">
@@ -34,7 +37,7 @@
               [attr.id]="'catData' + i"
               [collapse]="cat.isCollapsed"
               [isAnimated]="true">
-              <div class="card card-body">
+              <div class="card card-body no-top-border">
                 {{cat.cat.name}}'s age is {{cat.cat.age || 0}}
               </div>
             </div>
@@ -42,61 +45,51 @@
         </div>
       </div>
     </div>
-
-    <!-- Cat list -->
-    <!-- <div id="cats" [collapse]="isCollapsed" [isAnimated]="true">
-      <ul *ngFor="let cat of cats; let i = index">
-        <button
-          type="button"
-          class="w-100 btn btn-dark shadow-none"
-          (click)="cat.isCollapsed = !cat.isCollapsed"
-          [attr.aria-expanded]="!cat.isCollapsed" [attr.aria-controls]="'catData' + i"
-          [ngClass]="{'collapsedd': cat.isCollapsed, 'uncollapsedd': !cat.isCollapsed}">
-
-          {{cat.cat.name}}
-        </button>
-        <div
-          [attr.id]="'catData' + i"
-          [collapse]="cat.isCollapsed"
-          [isAnimated]="true">
-          <div class="card card-body">
-            {{cat.cat.name}}'s age is {{cat.cat.age || 0}}
-          </div>
-        </div>
-      </ul>
-    </div> -->
-
-
   </div>
+
   <div class="col-3">
-    <form [formGroup]="catForm">
+    <!-- Cat form -->
+    <form class="mt-3" [formGroup]="catForm">
       <label for="catName">Cat name goes here</label>
       <input formControlName="name" type="text" id="catName" required>
-      <div *ngIf="catForm.get('name')?.touched && catForm.get('name')?.invalid" class="alert alert-danger">Name must
-        be at least 3 characters long</div>
+      <div
+        *ngIf="name.touched && name.dirty && name.invalid"
+        class="alert alert-danger">
+        Name must be at least 3 characters long
+      </div>
 
       <button class="btn btn-success" (click)="addCat()">Add</button>
       <button class="btn btn-danger" (click)="killCat()">Remove</button>
-
-      <button
-        type="button"
-        class="btn btn-secondary"
-        (click)="updateCollapsed = !updateCollapsed"
-        [attr.aria-expanded]="!updateCollapsed"
-        aria-controls="update">
-        Update
-      </button>
-      <div
-        id="update"
-        [collapse]='updateCollapsed'
-        [isAnimated]='true'>
-        <div class="form-group">
-          <div class="card card-body">
-            <label for="catAge">Enter cat age</label>
-            <input formControlName="age" type="number" id="catAge" placeholder="Work in progress...">
-            <div *ngIf="(age.dirty || age.touched) && age.invalid" class="alert alert-danger">Not a
-              valid number<br>(age > 0, a whole number)</div>
-            <button class="btn btn-secondary" (click)='updateCat()'>Update</button>
+      <div>
+        <button
+          type="button"
+          class="btn btn-secondary shadow-none w-100"
+          (click)="updateCollapsed = !updateCollapsed"
+          [attr.aria-expanded]="!updateCollapsed"
+          aria-controls="update"
+          [ngClass]="{'collapsedd': updateCollapsed, 'uncollapsedd': !updateCollapsed}">
+          Update
+        </button>
+        <div
+          id="update"
+          [collapse]='updateCollapsed'
+          [isAnimated]='true'>
+          <div class="form-group">
+            <div class="card card-body no-top-border">
+              <label for="catAge">Enter cat age</label>
+              <input
+                formControlName="age"
+                type="number"
+                id="catAge"
+                class="form-control no-bottom-border">
+              <div
+                *ngIf="(age.dirty || age.touched) && age.invalid"
+                class="alert alert-danger">
+                Not avalid number<br>
+                (age > 0, a whole number)
+              </div>
+              <button class="btn btn-secondary no-top-border" (click)='updateCat()'>Update</button>
+            </div>
           </div>
         </div>
       </div>
@@ -104,10 +97,9 @@
   </div>
 
   <div class="col-3">
-    <button class="btn btn-danger" (click)="reset()">Reset <i class="fas fa-trash-restore"></i></button>
-  </div>
-
-  <div class="col">
-    <button class="btn btn-secondary">Account</button>
+    <div class="d-inline-flex flex-column">
+      <button class="btn btn-danger" (click)="reset()">Reset <i class="fas fa-trash-restore"></i></button>
+      <button class="btn btn-secondary">Account</button>
+    </div>
   </div>
 </div>
