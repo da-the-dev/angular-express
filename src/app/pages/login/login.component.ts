@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
   ) { }
 
   successfullyRegistered = false
+  hasBeenSubmitted = false
 
   accountExists(): AsyncValidatorFn {
     return async (control: AbstractControl): Promise<ValidationErrors | null> => {
@@ -25,7 +26,6 @@ export class LoginComponent implements OnInit {
   }
 
   loginForm = new FormGroup({
-    // nickname: new FormControl('', [Validators.required, this.forbiddenNameValidator(/1234/)]),
     nickname: new FormControl('', [Validators.required], this.accountExists()),
     password: new FormControl('', [Validators.required])
   })
@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
 
   submit() {
     this.loginForm.updateValueAndValidity()
-
+    this.hasBeenSubmitted = true
     if (this.loginForm.valid) {
       this.accountService.login(this.nickname.value, this.password.value).then(o => o.subscribe(
         res => {

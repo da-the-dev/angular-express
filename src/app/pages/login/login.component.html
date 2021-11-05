@@ -7,10 +7,10 @@
     <div class="mb-3">
       <label class="form-label" for="nickname">Nickname</label><br>
       <input formControlName="nickname" class="form-control" type="text" name="nickname" id="nickname">
-      <div *ngIf=" nickname.touched && nickname.dirty && nickname.errors" class="alert alert-danger">
-        <div *ngIf="!nickname.errors?.require && !nickname.errors?.accountExists">A user with this nickname doesn't
-          exist
-        </div>
+      <div *ngIf="(nickname.touched && nickname.errors) || (hasBeenSubmitted && nickname.errors)"
+        class="alert alert-danger">
+        <div *ngIf="!nickname.errors?.accountExists && !nickname.errors?.required">A user with this nickname doesn't
+          exist</div>
         <div *ngIf="nickname.errors?.required">Nickname is required</div>
       </div>
     </div>
@@ -18,10 +18,12 @@
     <div class="mb-3">
       <label class="form-label" for="password">Password</label><br>
       <input formControlName="password" class="form-control" type="password" name="password" id="password">
-      <div *ngIf="password.touched && password.dirty && password.errors" class="alert alert-danger">
+      <div *ngIf="(password.touched && password.errors) || (hasBeenSubmitted && password.errors)"
+        class="alert alert-danger">
         <div *ngIf="password.errors?.required">Password is required</div>
-        <div *ngIf="password.errors?.pattern">Password must match a pattern</div>
-        <div *ngIf="!password.errors?.validPassword">Password is incorrect</div>
+        <div *ngIf="!password.errors?.validPassword && !password.errors?.required && !nickname.errors?.required">
+          Password
+          is incorrect</div>
       </div>
     </div>
     <!-- Login button -->

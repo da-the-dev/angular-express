@@ -19,6 +19,7 @@ export class RegisterComponent implements OnInit {
   ) { }
 
   successfullyRegistered = false
+  hasBeenSumitted = false
 
   accountExists(): AsyncValidatorFn {
     return async (control: AbstractControl): Promise<ValidationErrors | null> => {
@@ -40,7 +41,8 @@ export class RegisterComponent implements OnInit {
 
   submit() {
     this.registerForm.updateValueAndValidity()
-
+    this.hasBeenSumitted = true
+    console.log(this.password)
     if (this.registerForm.valid) {
       this.accountService.register(this.nickname.value, this.password.value).then(o => o.subscribe(
         res => {
