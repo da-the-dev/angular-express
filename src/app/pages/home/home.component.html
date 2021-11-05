@@ -1,9 +1,14 @@
 <div class="row m-1">
   <div class="col-3">
-    <div class="row align-items-center">
+    <div class="row text-center align-items-center">
       <div class="col-8">
-        <button type="button" class="btn btn-primary" (click)="isCollapsed = !isCollapsed"
-          [attr.aria-expanded]="!isCollapsed" aria-controls="cats">Click here to view cats
+        <button
+          type="button"
+          class="btn btn-primary mt-1"
+          (click)="isCollapsed = !isCollapsed"
+          [attr.aria-expanded]="!isCollapsed"
+          aria-controls="cats">
+          Click here to view cats
         </button>
       </div>
       <div class="col">
@@ -11,18 +16,57 @@
       </div>
     </div>
     <hr>
-    <div id="cats" [collapse]="isCollapsed" [isAnimated]="true">
+
+    <div>
+      <div id="cats" [collapse]="isCollapsed" [isAnimated]="true">
+        <div *ngFor="let cat of cats; let i = index">
+          <div class="mb-1">
+            <button
+              type="button"
+              class="w-100 btn btn-dark shadow-none"
+              (click)="cat.isCollapsed = !cat.isCollapsed"
+              [attr.aria-expanded]="!cat.isCollapsed" [attr.aria-controls]="'catData' + i"
+              [ngClass]="{'collapsedd': cat.isCollapsed, 'uncollapsedd': !cat.isCollapsed}">
+
+              {{cat.cat.name}}
+            </button>
+            <div
+              [attr.id]="'catData' + i"
+              [collapse]="cat.isCollapsed"
+              [isAnimated]="true">
+              <div class="card card-body">
+                {{cat.cat.name}}'s age is {{cat.cat.age || 0}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cat list -->
+    <!-- <div id="cats" [collapse]="isCollapsed" [isAnimated]="true">
       <ul *ngFor="let cat of cats; let i = index">
-        <button type="button" class="btn btn-dark shadow-none" (click)="cat.isCollapsed = !cat.isCollapsed"
-          [attr.aria-expanded]="!cat.isCollapsed" [attr.aria-controls]="'catData' + i">{{cat.cat.name}}
+        <button
+          type="button"
+          class="w-100 btn btn-dark shadow-none"
+          (click)="cat.isCollapsed = !cat.isCollapsed"
+          [attr.aria-expanded]="!cat.isCollapsed" [attr.aria-controls]="'catData' + i"
+          [ngClass]="{'collapsedd': cat.isCollapsed, 'uncollapsedd': !cat.isCollapsed}">
+
+          {{cat.cat.name}}
         </button>
-        <div [attr.id]="'catData' + i" [collapse]="cat.isCollapsed" [isAnimated]="true">
+        <div
+          [attr.id]="'catData' + i"
+          [collapse]="cat.isCollapsed"
+          [isAnimated]="true">
           <div class="card card-body">
             {{cat.cat.name}}'s age is {{cat.cat.age || 0}}
           </div>
         </div>
       </ul>
-    </div>
+    </div> -->
+
+
   </div>
   <div class="col-3">
     <form [formGroup]="catForm">
@@ -34,11 +78,18 @@
       <button class="btn btn-success" (click)="addCat()">Add</button>
       <button class="btn btn-danger" (click)="killCat()">Remove</button>
 
-      <button type="button" class="btn btn-secondary" (click)="updateCollapsed = !updateCollapsed"
-        [attr.aria-expanded]="!updateCollapsed" aria-controls="update">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="updateCollapsed = !updateCollapsed"
+        [attr.aria-expanded]="!updateCollapsed"
+        aria-controls="update">
         Update
       </button>
-      <div id="update" [collapse]='updateCollapsed' [isAnimated]='true'>
+      <div
+        id="update"
+        [collapse]='updateCollapsed'
+        [isAnimated]='true'>
         <div class="form-group">
           <div class="card card-body">
             <label for="catAge">Enter cat age</label>
@@ -54,5 +105,9 @@
 
   <div class="col-3">
     <button class="btn btn-danger" (click)="reset()">Reset <i class="fas fa-trash-restore"></i></button>
+  </div>
+
+  <div class="col">
+    <button class="btn btn-secondary">Account</button>
   </div>
 </div>

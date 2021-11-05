@@ -9,3 +9,22 @@ form {
     transform: scale(2);
     color: #0d6efd;
 }
+
+.collapsedd {
+    border-bottom-left-radius: .25rem;
+    border-bottom-right-radius: .25rem;
+    transition: border-radius 1s;
+}
+.uncollapsedd {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.card {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+// .uncollapsed {
+//     transition-duration : border-radius 1s;
+// }

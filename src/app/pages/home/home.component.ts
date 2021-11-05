@@ -10,7 +10,7 @@ import { CatService } from 'src/app/core/services/cat.service';
 })
 export class HomeComponent implements OnInit {
 
-  isCollapsed = true;
+  isCollapsed = false;
   updateCollapsed = true;
 
   catForm = new FormGroup({
