@@ -4,11 +4,11 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class AuthService {
-  loginStorage(token: string) {
+  login(token: string) {
     localStorage.setItem('isLoggedOn', 'true')
     localStorage.setItem('token', token)
   }
-  logoutStorage() {
+  logout() {
     localStorage.setItem('isLoggedOn', 'false')
     localStorage.removeItem('token')
   }

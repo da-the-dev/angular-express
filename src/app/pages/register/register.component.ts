@@ -47,7 +47,7 @@ export class RegisterComponent implements OnInit {
       this.accountService.register(this.nickname.value, this.password.value).then(o => o.subscribe(
         res => {
           this.successfullyRegistered = true
-          this.auth.loginStorage(this.password.value)
+          this.auth.login(this.password.value)
           this.router.navigate(['home'])
         }
       ))

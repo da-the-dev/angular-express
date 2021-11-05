@@ -35,7 +35,7 @@ export class AccountService {
 
     // Successful login
     if (user.nickname == nickname && await bcrypt.compare(password, user.passHash)) {
-      this.auth.loginStorage(password)
+      this.auth.login(password)
       return new Observable(subscriber => {
         subscriber.next(true)
         subscriber.complete()
@@ -53,5 +53,9 @@ export class AccountService {
         subscriber.error({ status: 404 })
         subscriber.complete()
       })
+  }
+
+  logout() {
+    this.auth.logout()
   }
 }
