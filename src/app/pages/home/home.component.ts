@@ -1,14 +1,54 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CatData } from 'src/app/core/interfaces/cat-data';
 import { CatService } from 'src/app/core/services/cat.service';
+import anime, { stagger } from 'animejs'
+import { AnimeInstance } from 'animejs'
+import { CompileTemplateMetadata } from '@angular/compiler';
+
+const checkElement = async (selector: any) => {
+  while (document.querySelector(selector) === null) {
+    await new Promise(resolve => requestAnimationFrame(resolve))
+  }
+  return document.querySelector(selector);
+};
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements AfterViewInit {
+  reloadAnim: AnimeInstance
+  async ngAfterViewInit() {
+    this.submit()
+    // checkElement('.catData').then(() => {
+    //   console.log(document.querySelectorAll('.catData'))
+    //   anime({
+    //     targets: document.querySelectorAll('.catData'),
+    //     translate: '400px',
+    //     duration: anime.stagger(100),
+    //     easing: 'easeInOutSine',
+    //     complete: () => {
+    //       console.log('done!')
+    //       document.querySelectorAll('.catData').forEach(el => {
+    //         // console.log(el)
+    //         el.classList.remove('catData')
+    //         //@ts-ignore
+    //         el.style.removeProperty('translate')
+    //         console.log(el)
+    //       })
+    //     }
+    //   })
+    // })
+
+    this.reloadAnim = anime({
+      targets: document.querySelector('.reload'),
+      rotate: '2turn',
+      duration: 2000,
+      autoplay: false,
+    })
+  }
 
   isCollapsed = false;
   updateCollapsed = true;
@@ -27,9 +67,7 @@ export class HomeComponent implements OnInit {
     private catService: CatService
   ) { }
 
-  ngOnInit(): void {
-    this.submit()
-  }
+
 
   get age() {
     return this.catForm.get('age')!
@@ -78,6 +116,11 @@ export class HomeComponent implements OnInit {
         }
       })
     })
+  }
+
+
+  reloadSpin() {
+    this.reloadAnim.restart()
   }
 
   log(any?: any) {

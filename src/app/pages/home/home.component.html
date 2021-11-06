@@ -1,30 +1,27 @@
 <home-navbar></home-navbar>
 <div class="row m-1">
+  <!-- Cats -->
   <div class="col-3">
     <!-- Cat list control -->
-    <div class="row text-center align-items-center">
-      <div class="col-8">
-        <button
-          type="button"
-          class="btn btn-primary mt-1"
-          (click)="isCollapsed = !isCollapsed"
-          [attr.aria-expanded]="!isCollapsed"
-          aria-controls="cats">
-          Click here to view cats
-        </button>
-      </div>
-      <div class="col">
-        <i (click)="submit()" class="fas fa-redo-alt big"></i>
-      </div>
+    <div class="btn-group mt-1 w-100" role="group">
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="isCollapsed = !isCollapsed"
+        [attr.aria-expanded]="!isCollapsed"
+        aria-controls="cats">
+        Click here to view cats
+      </button>
+      <button class="btn btn-primary" (click)="submit(); reloadSpin()">
+        <span class="fas fa-redo-alt reload"></span>
+      </button>
     </div>
-
     <hr>
-
     <!-- Cat list -->
     <div>
       <div id="cats" [collapse]="isCollapsed" [isAnimated]="true">
         <div *ngFor="let cat of cats; let i = index">
-          <div class="mb-1">
+          <div class="mb-1 catData">
             <button
               type="button"
               class="w-100 btn btn-dark shadow-none"
@@ -48,9 +45,9 @@
     </div>
   </div>
 
+  <!-- Cat form -->
   <div class="col-3">
-    <!-- Cat form -->
-    <form class="mt-3" [formGroup]="catForm">
+    <form class="" [formGroup]="catForm">
       <label for="catName">Cat name goes here</label>
       <input formControlName="name" type="text" id="catName" required>
       <div
@@ -89,7 +86,7 @@
                 Not avalid number<br>
                 (age > 0, a whole number)
               </div>
-              <button class="btn btn-secondary no-top-border" (click)='updateCat()'>Update</button>
+              <button class="btn btn-secondary no-top-border shadow-none" (click)='updateCat()'>Update</button>
             </div>
           </div>
         </div>
